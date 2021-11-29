@@ -9,3 +9,4 @@
 ###< symfony/phpunit-bridge ###
 
 .idea
+composer.lock
