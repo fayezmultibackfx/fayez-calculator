@@ -1,0 +1,12 @@
+{% macro bar(link, num) %}
+    <div class="fayez-calculator-widget-wrapper">
+        <div class="fayez-calculator-widget">
+            <div class="fayez-calculator-link-wrapper">
+                <a id="fayez-calculator-link" href="{{ link }}">{{ 'fayez_calculator.bar'|trans }}</a>
+            </div>
+            <div class="fayez-calculator-service-wrapper">
+                <code>{{ fayez_calculator_bar_service.foo(num, random(50)) }}</code>
+            </div>
+        </div>
+    </div>
+{% endmacro bar %}
