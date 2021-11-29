@@ -2,9 +2,8 @@
 
 namespace Fayez\CalculatorBundle\Service;
 
-use Fayez\CalculatorBundle\Entity\Car;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Fayez\CalculatorBundle\Entity\Car;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Translation\TranslatorBagInterface;
@@ -49,20 +48,26 @@ class Service
 
     public function __construct(
         EntityManagerInterface $em,
-        TokenStorageInterface $token,
-        RequestStack $requestStack,
+        TokenStorageInterface  $token,
+        RequestStack           $requestStack,
         TranslatorBagInterface $translator,
-        $bar,
-        $integerFoo,
-        $integerBar
-    ) {
+                               $bar,
+                               $integerFoo,
+                               $integerBar
+    )
+    {
         $this->em = $em;
         $this->token = $token;
         $this->request = $requestStack->getCurrentRequest();
         $this->translator = $translator;
         $this->bar = $bar;
-        $this->integerFoo = (int) $integerFoo;
-        $this->integerBar = (int) $integerBar;
+        $this->integerFoo = (int)$integerFoo;
+        $this->integerBar = (int)$integerBar;
+    }
+
+    public function sum($a, $b)
+    {
+        return $a + $b;
     }
 
     public function foo($a, $b)

@@ -2,11 +2,11 @@
 
 namespace Fayez\CalculatorBundle\Controller;
 
-use Fayez\CalculatorBundle\DTO\CarDTO;
+use Exception;
 use Fayez\CalculatorBundle\Service\Service;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class FayezCalculatorController extends AbstractController
 {
@@ -16,6 +16,17 @@ class FayezCalculatorController extends AbstractController
     public function __construct(Service $service)
     {
         $this->service = $service;
+    }
+
+    public function sumTwoNumbers(RequestStack $requestStack, $a, $b)
+    {
+        $request = $requestStack->getCurrentRequest();
+
+        if (!$request->isXmlHttpRequest()) {
+            throw new AccessDeniedException();
+        }
+
+        return $this->json($this->service->sum($a, $b));
     }
 
     public function foo(RequestStack $requestStack, $a, $b)
@@ -32,7 +43,7 @@ class FayezCalculatorController extends AbstractController
         } catch (AccessDeniedException $e) {
             // TODO: Catch exception access denied
             return $this->json($e->getMessage(), $e->getCode());
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // TODO: Catch unknown exception
             return $this->json($e->getMessage(), $e->getCode());
         }
